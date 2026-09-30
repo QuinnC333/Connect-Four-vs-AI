@@ -21,6 +21,7 @@ function reset(){
              [0,0,0,0,0,0,0],
              [0,0,0,0,0,0,0]];
     load();
+    isPlayerTurn = true;
 }
             
 function dropPlayer(col){

@@ -36,6 +36,10 @@ function dropPlayer(col){
         isPlayerTurn = false;
         console.log(board);
         load();
+        if(isWin(1)){
+            winAnimation(2);
+            return;
+        }
         aiTurn();
     }
 }
@@ -72,9 +76,13 @@ async function aiTurn(){
                 }
             }
         }
-        isPlayerTurn = true;
         console.log(board);
         load();
+        if(isWin(2)){
+            winAnimation(2);
+            return;
+        }
+        isPlayerTurn = true;
     }
 }
 
@@ -112,8 +120,46 @@ function isFullBoard(){
     return true;
 }
 
-function isWin(){
+function inBoundsX(...nums){
+    for(let i = 0;i<nums.length;i++){
+        if(nums[i]<0 || nums[i]>6){
+            return false;
+        }
+    }
+    return true;
+}
+
+function inBoundsY(...nums){
+    for(let i = 0;i<nums.length;i++){
+        if(nums[i]<0 || nums[i]>5){
+            return false;
+        }
+    }
+    return true;
+}
+
+function isWin(curPlayer){
+    for(let r = 0;r <= 5;r++){
+        for(let c = 0;c <= 6;c++){
+            if(board[r][c] == curPlayer){
+                //horizontal bkw
+                if(inBoundsX(c,c-1,c-2,c-3)){
+                    if(board[r][c-1] == curPlayer && board[r][c-2] == curPlayer && board[r][c-3] == curPlayer){
+                        console.log("Player " + curPlayer + " wins!");
+                        return true;
+                    }
+                //horizontal frwd
+                }else if(inBoundsX(c,c+1,c+2,c+3)){
+
+                }
+            }
+        }
+    }
     return false;
+}
+
+function winAnimation(player){
+    //this
 }
 
 const startTop = 26;

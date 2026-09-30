@@ -3,7 +3,6 @@ import random
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -13,8 +12,10 @@ def get_ai_move():
     data = request.get_json()
     board_state = data.get("board")
 
-    #placeholder↓
+    #CHANGE THIS TO UR AI ↓
     ai_choice = random.randint(0, 6)
+    #temporary test
+    ai_choice = 0;
 
     return jsonify({"move": ai_choice})
 

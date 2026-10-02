@@ -12,6 +12,12 @@
 
         <h1>Connect Four vs AI</h1>
 
+        <div class="semi-transparent-box">
+                <p id="winMsg" style="display: none; position: absolute; 
+                    z-index: 100; color: red; font-size: 24px; font-weight: bold; 
+                    top: 10px; left: 50%; transform: translateX(-50%);">Error</p>
+        </div>
+
         <div class="gameBoard">
 
             <div class="pieceLayer" id="pieces"></div>
@@ -27,11 +33,10 @@
                 <button class="columnButton" style="left:538px" onclick="dropPlayer(5)"></button>
                 <button class="columnButton" style="left:632px" onclick="dropPlayer(6)"></button>
             </div>
-
         </div>
         
         <div class="container">
-            <button class="myButton" onclick="reset()">Restart</button>
+            <button class="theButton" onclick="reset()">Restart</button>
         </div>
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </body>

@@ -22,6 +22,8 @@ function reset(){
              [0,0,0,0,0,0,0]];
     load();
     isPlayerTurn = true;
+    document.getElementById("winMsg").style.display = "none";
+    document.querySelector(".semi-transparent-box").style.display = "none";
 }
             
 function dropPlayer(col){
@@ -38,7 +40,6 @@ function dropPlayer(col){
         console.log(board);
         load();
         if(isWin(1)){
-            winAnimation(2);
             return;
         }
         aiTurn();
@@ -80,7 +81,6 @@ async function aiTurn(){
         console.log(board);
         load();
         if(isWin(2)){
-            winAnimation(2);
             return;
         }
         isPlayerTurn = true;
@@ -121,37 +121,31 @@ function isFullBoard(){
     return true;
 }
 
-function inBoundsX(...nums){
-    for(let i = 0;i<nums.length;i++){
-        if(nums[i]<0 || nums[i]>6){
-            return false;
-        }
-    }
-    return true;
-}
+function isWin(curPlayer) {
+    const directions = [
+        [0, 1], //right
+        [1, 0], //down
+        [1, 1], //down right
+        [1, -1] //down left
+    ];
 
-function inBoundsY(...nums){
-    for(let i = 0;i<nums.length;i++){
-        if(nums[i]<0 || nums[i]>5){
-            return false;
-        }
-    }
-    return true;
-}
-
-function isWin(curPlayer){
     for(let r = 0;r <= 5;r++){
-        for(let c = 0;c <= 6;c++){
-            if(board[r][c] == curPlayer){
-                //horizontal bkw
-                if(inBoundsX(c,c-1,c-2,c-3)){
-                    if(board[r][c-1] == curPlayer && board[r][c-2] == curPlayer && board[r][c-3] == curPlayer){
-                        console.log("Player " + curPlayer + " wins!");
-                        return true;
+        for(let c = 0;c <= 6;c++) {
+            if(board[r][c] != curPlayer)continue;
+            for (let [dr,dc] of directions) {
+                let win = true;
+                for (let i = 1; i < 4; i++) {
+                    let nr = r + dr * i;
+                    let nc = c + dc * i;
+                    if (nr < 0 || nr > 5 || nc < 0 || nc > 6 || board[nr][nc] !== curPlayer){
+                        win = false;
+                        break;
                     }
-                //horizontal frwd
-                }else if(inBoundsX(c,c+1,c+2,c+3)){
-
+                }
+                if (win){
+                    console.log("Player " + curPlayer + " wins!");
+                    setTimeout(() => winAnimation(curPlayer), 50);
+                    return true;
                 }
             }
         }
@@ -160,7 +154,19 @@ function isWin(curPlayer){
 }
 
 function winAnimation(player){
-    //this
+    message = document.getElementById("winMsg");
+    box = document.querySelector(".semi-transparent-box");
+    if(!message || !box){
+        console.error("item does not exist")
+    }
+    if(player == 1){
+        message.textContent = "Player wins!";
+        console.log("message");
+    }else{
+        message.textContent = "AI wins!";
+    }
+    box.style.display = "flex";
+    message.style.display = "block";
 }
 
 const startTop = 26;

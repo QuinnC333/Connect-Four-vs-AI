@@ -1,5 +1,5 @@
 How to run:
 in vscode
 ctrl shift tilda
-flask --app projTest run
+flask --app game run
 click the link

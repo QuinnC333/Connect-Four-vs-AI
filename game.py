@@ -14,8 +14,6 @@ def get_ai_move():
 
     #CHANGE THIS TO UR AI ↓
     ai_choice = random.randint(0, 6)
-    #temporary test
-    ai_choice = 0;
 
     return jsonify({"move": ai_choice})
 

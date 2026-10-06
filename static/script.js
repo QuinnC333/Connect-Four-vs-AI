@@ -28,7 +28,7 @@ function reset(){
             
 function dropPlayer(col){
     if(isPlayerTurn){
-        if(col>=0 && col<=6){
+        if(col>=0 && col<=6 && (board[0][col]==0)){
             for(let i=5;i>=0;i--){
                 if(board[i][col]==0){
                     board[i][col]=1;
@@ -36,13 +36,15 @@ function dropPlayer(col){
                 }
             }
         }
-        isPlayerTurn = false;
         console.log(board);
         load();
-        if(isWin(1)){
-            return;
+        if(board[0][col]==0){
+            isPlayerTurn = false;
+            if(isWin(1)){
+                return;
+            }
+            aiTurn();
         }
-        aiTurn();
     }
 }
 

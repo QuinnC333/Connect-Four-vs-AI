@@ -3,3 +3,7 @@ in vscode
 ctrl shift tilda
 flask --app game run
 click the link
+
+OR
+
+go to game.py and hit run
